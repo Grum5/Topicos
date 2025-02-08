@@ -1,6 +1,7 @@
 # Topicos avanzados de programación
-Este es un repositorio hecho para mi clase de Topicos avanzados de programación
-Actualmente en construcción
+Este es un repositorio hecho para mi clase de Topicos avanzados de programación.
+
+***Actualmente en construcción***
 
 --- 
 
