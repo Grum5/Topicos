@@ -40,7 +40,7 @@ class ScrollFrame(tk.Frame):
         # Ajustar el tamaño del Frame interno cuando cambie el tamaño del Canva
         self.canvas.bind('<Configure>', self.on_canvas_configure)
 
-        self.canvas.bind_all('<MouseWheel>', self.on_mouse_wheel)
+        self.bind_all('<MouseWheel>', self.on_mouse_wheel)
 
         self.scrollable_frame.bind('<MouseWheel>', self.on_mouse_wheel)
 

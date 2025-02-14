@@ -56,7 +56,7 @@ class MiniPicturesLabelFrame(tk.LabelFrame):
     def show_images(self, dir):
         ''' Metodo que muestras las imagenes del directorio '''
 
-        # Si hay imagenes en el LabelFrame, eliminarlas
+        # Si hay imagenes en el ScrollFrame, eliminarlas
         for elem in self.images_frame.scrollable_frame.winfo_children():
             elem.destroy()
 
