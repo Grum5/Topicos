@@ -3,13 +3,9 @@ Este es un repositorio hecho para mi clase de Topicos avanzados de programación
 
 ***Actualmente en construcción***
 
---- 
-
 ## Tecnologias usadas:
-1. Python | Tkinter
+1. Python | Tkinter & PySide(Qt)
 2. Kotlin | Compose for desktop
-
----
 
 ## Notas:
 * Esta divido en dos repositorios | Python y Kotlin
