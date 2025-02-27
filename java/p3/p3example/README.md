@@ -4,7 +4,7 @@
 - **p3example**
     - **app**
         - **lib**   // Directorio de la libreria compilada en formato .JAR
-            - **mycomponents-1.0.2.jar***
+            - **mycomponents-1.0.2.jar**
         - **out**
             - **[...]**
         - **src**   // Directorio de el codigo fuente
