@@ -2,40 +2,8 @@
 .venv
 .__pycache__
 
-# Archivos generados por Eclipse
-.project
-.classpath
-.settings/
-
-# Archivos generados por IntelliJ IDEA
-.idea/
-*.iml
-
-# Archivos generados por Gradle
-.gradle/
-build/
-gradle-wrapper.jar
-
-# Archivos y directorios de Gradle (para evitar archivos temporales y generados)
-.gradle/*
-gradle-wrapper.properties
-
 # Archivos temporales generados por macOS
 .DS_Store
 
-# Archivos temporales generados por Gradle
-*.tmp
-*.swp
-*.bak
-
-# Archivos y directorios generados durante el proceso de construcción
-/bin/
-/build/
-out/
-
 # Archivos temporales generados por el sistema
 *.swp
-
-# Archivos de Gradle Wrapper
-gradle-wrapper.jar
-gradle-wrapper.properties
