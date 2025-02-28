@@ -73,7 +73,7 @@ public class App{
       
         // Usando un boton personalizado
         CustomButton btn = new CustomButton(
-            "Botooon",
+            "Boton personalizado",
             Color.DARK_GRAY,
             Color.RED
         );
