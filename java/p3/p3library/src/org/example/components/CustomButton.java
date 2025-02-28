@@ -72,6 +72,7 @@ public class CustomButton extends JButton {
             @Override
             public void mouseClicked(MouseEvent event) {
                 if (event.getClickCount() == 2) {
+                    // Se puede agregar una funcion diferente dependiendo el uso
                     JOptionPane.showMessageDialog(
                         CustomButton.this,
                         "Diste doble click"
