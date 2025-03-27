@@ -1,6 +1,6 @@
 # Python proyects
 
-Aqui se encuentran las diversas practicas realizadas con Python, Tkinter y Qt
+Aqui se encuentran las diversas practicas realizadas con Python y Tkinter
 
 ## Instalación y configuración
 
