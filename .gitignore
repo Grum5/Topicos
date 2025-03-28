@@ -1,61 +1,70 @@
-# Python  
-.venv/  
-__pycache__/  
-*.pyc  
-*.pyo  
+# Python
+.venv
+__pycache__/
 
-# Archivos temporales generados por macOS  
-.DS_Store  
+# Archivos temporales generados por macOS
+.DS_Store
 
-# Archivos temporales generados por el sistema  
-*.swp  
+# Archivos temporales generados por el sistema
+*.swp
 
-# Compilación de C#  
-bin/  
-obj/  
-*.dll  
-*.exe  
-*.pdb  
-*.log  
+# Archivos de compilación de C# y .NET
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.app
+*.so
+*.dylib
+*.o
+*.a
 
-# Configuración y dependencias de .NET  
-.vscode/  
-*.user  
-*.suo  
-*.sln.docstates  
-project.lock.json  
-global.json  
-.nuget/  
-packages/  
-Thumbs.db  
+# Configuración de usuario de Visual Studio y Rider
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
-# Archivos de configuración con credenciales  
-appsettings.json  
-appsettings.*.json  
-secrets.json  
+# Archivos de dependencia de .NET y NuGet
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+*.csproj.user
 
-# Archivos específicos de MAUI  
-.platforms/  
-bin/  
-obj/  
-node_modules/  
-*.apk  
-*.aab  
-*.ipa  
-*.xcworkspace  
-*.xcuserstate  
-*.xcodeproj/  
-*.pbxproj  
-*.plist  
+# Archivos de depuración y logs
+*.log
+*.bak
+*.swp
 
-# Archivos de Docker
-docker-compose.override.yml  
-.env  
+# Archivos generados por MAUI
+csharp/dbAccess/Platforms/
+csharp/dbAccess/Resources/
+csharp/dbAccess/Properties/
 
-# Archivos de bases de datos locales  
-*.mdf  
-*.ldf  
-*.bak  
-*.sqlite  
-*.sql  
-*.csv  
+# Bases de datos SQLite locales
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+
+# Archivos de MySQL/MariaDB locales
+*.sql
+*.myd
+*.myi
+*.frm
+*.ibd
+
+# Archivos de configuración de Docker (si usas contenedores para la base de datos)
+docker-compose.override.yml
+.env
+
+# Evitar subir credenciales
+secrets.json
+config.json
+appsettings.json
+appsettings.*.json
