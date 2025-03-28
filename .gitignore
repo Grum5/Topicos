@@ -1,0 +1,72 @@
+not_push/
+
+# Python
+.venv
+__pycache__/
+
+# Archivos temporales generados por macOS
+.DS_Store
+
+# Archivos temporales generados por el sistema
+*.swp
+
+# Archivos de compilación de C# y .NET
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.app
+*.so
+*.dylib
+*.o
+*.a
+
+# Configuración de usuario de Visual Studio y Rider
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de dependencia de .NET y NuGet
+*.nupkg
+packages/
+project.lock.json
+project.assets.json
+*.csproj.user
+
+# Archivos de depuración y logs
+*.log
+*.bak
+*.swp
+
+# Archivos generados por MAUI
+csharp/dbAccess/Platforms/
+csharp/dbAccess/Resources/
+csharp/dbAccess/Properties/
+
+# Bases de datos SQLite locales
+*.db
+*.sqlite
+*.sqlite3
+*.mdf
+*.ldf
+
+# Archivos de MySQL/MariaDB locales
+*.sql
+*.myd
+*.myi
+*.frm
+*.ibd
+
+# Archivos de configuración de Docker (si usas contenedores para la base de datos)
+docker-compose.override.yml
+.env
+
+# Evitar subir credenciales
+secrets.json
+config.json
+appsettings.json
+appsettings.*.json
