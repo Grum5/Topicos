@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"org.example.components","l":"CustomButton"},{"p":"org.example.components","l":"CustomTextBox"},{"p":"org.example.components","l":"InputValidator"},{"p":"org.example.components","l":"RFCValidator"}];updateSearchResults();
