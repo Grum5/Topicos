@@ -1,5 +1,10 @@
+.bin/
+.dbAccessAvalonia
+.dbAccessCLI
+.not_push
+
 # Python 
-.venv
+.venv/
 .__pycache__
 
 # Archivos temporales generados por macOS
