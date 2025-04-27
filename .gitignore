@@ -4,6 +4,7 @@ python/
 
 
 bin/
+obj/
 dbAccessAvalonia/
 dbAccessCLI/
 not_push/
