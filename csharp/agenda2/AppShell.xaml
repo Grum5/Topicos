@@ -9,8 +9,13 @@
     Title="agenda2">
 
     <ShellContent
-        Title="Login"
-        ContentTemplate="{DataTemplate views:LoginPage}"
-        Route="login" />
+        Route="LoginPage" 
+        ContentTemplate="{DataTemplate views:Login.LoginPage}" />
+
+    <ShellContent
+        Route="RegisterPage" 
+        ContentTemplate="{DataTemplate views:Login.RegisterPage}" />
+
+
 
 </Shell>
