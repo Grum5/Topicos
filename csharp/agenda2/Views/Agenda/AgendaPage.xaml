@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="agenda2.Views.Agenda.AgendaPage"
+    Shell.NavBarIsVisible="False"
+    Title="Agenda">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="10">
+
+            <!-- Encabezado -->
+            <Label 
+                Text="Agenda de Contactos"
+                FontSize="24"
+                FontAttributes="Bold"
+                VerticalOptions="Center" />
+
+            <!-- Entradas de texto para nuevo contacto -->
+            <Entry Placeholder="Nombre" Text="{Binding Name}" />
+            <Entry Placeholder="Teléfono" Keyboard="Telephone" Text="{Binding Phone}" />
+            <Entry Placeholder="Correo electrónico" Keyboard="Email" Text="{Binding Email}" />
+
+            <Button 
+                Text="Guardar contacto"
+                Command="{Binding SaveContactCommand}" />
+
+            <!-- Lista de contactos -->
+            <CollectionView ItemsSource="{Binding Contacts}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#ccc" CornerRadius="8" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"/>
+                                <Label Text="{Binding Phone}" FontSize="14" TextColor="Gray"/>
+                                <Label Text="{Binding Email}" FontSize="14" TextColor="Gray"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

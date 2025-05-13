@@ -1,6 +1,7 @@
 .gitignore
 android_developement_instructions.md
 python/
+rust/
 
 
 bin/

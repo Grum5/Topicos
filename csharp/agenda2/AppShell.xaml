@@ -16,6 +16,12 @@
         Route="RegisterPage" 
         ContentTemplate="{DataTemplate views:Login.RegisterPage}" />
 
+    <ShellContent
+        Route="RecoverPage" 
+        ContentTemplate="{DataTemplate views:Login.RecoverPage}" />
 
+    <ShellContent 
+        Route="AgendaPage"
+        ContentTemplate="{DataTemplate views:Agenda.AgendaPage}"/>
 
 </Shell>

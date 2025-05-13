@@ -1,13 +1,63 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
+<?xml version = "1.0" encoding = "UTF-8" ?>
 <ContentPage 
     Shell.NavBarIsVisible="False"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="agenda2.Views.Login.RevocerPage"
-    Title="Recuperar usuario"
+    x:Class="agenda2.Views.Login.RecoverPage"
+    Title="Login"
     xmlns:vm="clr-namespace:agenda2.ViewModel"
-    x:DataType="vm:RecoverViewModel">
+    x:DataType="vm:RecoverViewModel"
+    BackgroundColor="White">
 
-    
+    <StackLayout Padding="20" Spacing="20" VerticalOptions="Center">
+
+        <Label 
+            Text="Recuperar sesión"
+            FontSize="28"
+            FontAttributes="Bold"
+            TextColor="Black"
+            HorizontalOptions="Center" />
+
+        <Frame 
+            Padding="0" 
+            CornerRadius="8" 
+            HasShadow="False" 
+            BackgroundColor="#F0F0F0">
+
+            <Label 
+                Text="Ingresa tu correo electrónico para enviarte instrucciones para recuperar tu cuenta." 
+                FontSize="14"
+                TextColor="Gray"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
+
+            <Entry 
+                Placeholder="Email" 
+                Text="{Binding Email}" 
+                FontSize="18" 
+                BackgroundColor="Transparent" />
+        </Frame>
+
+        <Button 
+            Text="Recuperar contraseña" 
+            Command="{Binding RecoverCommand}"
+            FontAttributes="Bold"
+            BackgroundColor="Black"
+            TextColor="White"
+            HeightRequest="45"
+            CornerRadius="6" />
+
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="¿No tienes cuenta?" />
+            <Label 
+                Text=" Regístrate"
+                TextColor="Blue"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToRegisterCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+
+    </StackLayout>
 </ContentPage>
