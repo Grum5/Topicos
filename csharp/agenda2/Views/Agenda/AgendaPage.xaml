@@ -1,21 +1,28 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version = "1.0" encoding = "UTF-8" ?>
 
 <ContentPage 
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="agenda2.Views.Agenda.AgendaPage"
-    Shell.NavBarIsVisible="False"
-    Title="Agenda">
+    xmlns:model="clr-namespace:agenda2.Model"
+    xmlns:vm="clr-namespace:agenda2.ViewModel"
+    x:DataType="vm:AgendaViewModel"
+    Shell.NavBarIsVisible="True"
+    Title="Agenda de contactos">
+
+    <ContentPage.ToolbarItems>
+        
+        <!-- Se puede implementar un menu mas bonito al oprimir config-->
+        <ToolbarItem 
+            Text="Config"
+            IconImageSource="gear.png" 
+            Order="Primary" 
+            Priority="0"
+            Command="{Binding LogoutCommand}"/>
+    </ContentPage.ToolbarItems>    
 
     <ScrollView>
         <VerticalStackLayout Padding="15" Spacing="10">
-
-            <!-- Encabezado -->
-            <Label 
-                Text="Agenda de Contactos"
-                FontSize="24"
-                FontAttributes="Bold"
-                VerticalOptions="Center" />
 
             <!-- Entradas de texto para nuevo contacto -->
             <Entry Placeholder="Nombre" Text="{Binding Name}" />
@@ -29,13 +36,25 @@
             <!-- Lista de contactos -->
             <CollectionView ItemsSource="{Binding Contacts}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="model:Contact">
                         <Frame BorderColor="#ccc" CornerRadius="8" Padding="10" Margin="5">
-                            <VerticalStackLayout>
-                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"/>
-                                <Label Text="{Binding Phone}" FontSize="14" TextColor="Gray"/>
-                                <Label Text="{Binding Email}" FontSize="14" TextColor="Gray"/>
-                            </VerticalStackLayout>
+                            <Grid ColumnDefinitions="*, Auto">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Text="{Binding Phone}" FontSize="14" TextColor="Gray"/>
+                                    <Label Text="{Binding Email}" FontSize="14" TextColor="Gray"/>
+                                </VerticalStackLayout>
+                                <!-- Aqui quiero agregar la imagen del bote de basura para eliminar el contacto -->
+                                <ImageButton 
+                                    Grid.Column="1"
+                                    Source="trash_icon.png"
+                                    WidthRequest="15"
+                                    HeightRequest="15"
+                                    Scale="0.65"
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding DeleteContactCommand, Source={RelativeSource AncestorType={x:Type vm:AgendaViewModel}}}"
+                                    CommandParameter="{Binding}"/>
+                            </Grid>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

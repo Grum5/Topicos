@@ -56,9 +56,16 @@ internal partial class RecoverViewModel : ObservableObject {
     private async Task NavigateToRegister() {
         /* Metodo para viajar al RecoverPage */
 
-        await Shell.Current.GoToAsync("RegisterPage");
+        await Shell.Current.GoToAsync("//RegisterPage");
     }
 
+    [RelayCommand]
+    private async Task NavigateToLogin() {
+        /* Metodo para viajar al LoginPage */
+
+        await Shell.Current.GoToAsync("//LoginPage");
+    }
+    //
     // Propiedad booleana para validar el Entry
     private bool IsValid 
         => !string.IsNullOrWhiteSpace(Email);

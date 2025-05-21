@@ -20,7 +20,9 @@ internal partial class LoginViewModel : ObservableObject {
     private readonly INavigation _navigation;
 
     public LoginViewModel(INavigation navigation) {
+
         _navigation = navigation;
+
         CheckIfUserIsLoggedIn();
     }
 

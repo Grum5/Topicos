@@ -59,5 +59,17 @@
             </Label>
         </HorizontalStackLayout>
 
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <Label Text="¿Recordaste tu cuenta?" />
+            <Label 
+                Text=" Inicia sesión"
+                TextColor="Blue"
+                TextDecorations="Underline">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding NavigateToLoginCommand}" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+
     </StackLayout>
 </ContentPage>

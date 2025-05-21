@@ -49,7 +49,7 @@ internal partial class RegisterViewModel : ObservableObject {
                 await Shell.Current.DisplayAlert("Usuario registrado", $"Usuario {Username}", "OK");
                 
                 // Volver al Login
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("//LoginPage");
             }
 
             // Si falla mostrar un DisplayAlert con el error
@@ -66,7 +66,7 @@ internal partial class RegisterViewModel : ObservableObject {
     [RelayCommand]
     private async Task ReturnToLogin() {
         /* Comando para regresar el Login */
-        await Shell.Current.GoToAsync("..");
+        await Shell.Current.GoToAsync("//LoginPage");
     }
 
     // Propiedad booleana para validar los Entry

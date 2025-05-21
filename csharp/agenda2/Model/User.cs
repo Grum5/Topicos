@@ -1,5 +1,5 @@
 
-namespace Model;
+namespace agenda2.Model;
 
 public class User {
     /*
