@@ -1,13 +1,12 @@
 
 namespace agenda2.Model;
 
-public class User {
+public class UserAuth {
     /*
-     * Modelo para la obtencion de los datos del usuario
-     * - Se podria escalar para convertirlo a un JSON
+     * Modelo para convertir a JSON
+     * - Se usa para mandar a aunteticar un usuario a una API
      */
 
-    public string? email { get; set; }
-    public required string username { get; set; }
-    public required string password { get; set; }
+    public string? usuario { get; set; }
+    public string? clave { get; set; }
 }

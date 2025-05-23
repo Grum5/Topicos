@@ -34,22 +34,22 @@ internal partial class RegisterViewModel : ObservableObject {
             try {
 
                 // Guardar los datos del usuario
-                var user = new User {
-                    email = Email,
-                    username = Username,
-                    password = Password
-                };
+                // var user = new User {
+                //     email = Email,
+                //     username = Username,
+                //     password = Password
+                // };
 
-                // Registrar los datos del usuario en SecureStorage
-                await SecureStorage.SetAsync("email", user.email);
-                await SecureStorage.SetAsync("username", user.username);
-                await SecureStorage.SetAsync("password", user.password);
+                // // Registrar los datos del usuario en SecureStorage
+                // await SecureStorage.SetAsync("email", user.email);
+                // await SecureStorage.SetAsync("username", user.username);
+                // await SecureStorage.SetAsync("password", user.password);
 
-                // Mostrar en pantalla un DisplayAlert para hacer saber que se registro el usuario
-                await Shell.Current.DisplayAlert("Usuario registrado", $"Usuario {Username}", "OK");
-                
-                // Volver al Login
-                await Shell.Current.GoToAsync("//LoginPage");
+                // // Mostrar en pantalla un DisplayAlert para hacer saber que se registro el usuario
+                // await Shell.Current.DisplayAlert("Usuario registrado", $"Usuario {Username}", "OK");
+                // 
+                // // Volver al Login
+                // await Shell.Current.GoToAsync("//LoginPage");
             }
 
             // Si falla mostrar un DisplayAlert con el error

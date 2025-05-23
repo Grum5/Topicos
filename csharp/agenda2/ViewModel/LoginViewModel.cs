@@ -1,12 +1,10 @@
 namespace agenda2.ViewModel; 
 
 using Model;
+using Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-
-// DEBUGGING 
-// using CommunityToolkit.Maui.Alerts;
 
 internal partial class LoginViewModel : ObservableObject {
 
@@ -18,10 +16,12 @@ internal partial class LoginViewModel : ObservableObject {
     private string? password;
 
     private readonly INavigation _navigation;
+    private readonly AuthService _authService;
 
     public LoginViewModel(INavigation navigation) {
 
         _navigation = navigation;
+        _authService = new AuthService();
 
         CheckIfUserIsLoggedIn();
     }
@@ -51,29 +51,15 @@ internal partial class LoginViewModel : ObservableObject {
 
         // Intentar obtener el usuario
         try {
+            var success = await _authService.LoginAsync(Username, Password);
 
-            // Hacer una llamada async a SecureStorage para obtener el usuario y contraseña
-            var user = new User {
-                username = await SecureStorage.GetAsync("username"),
-                password = await SecureStorage.GetAsync("password"),
-            };
-
-            // Verificar que los Entry coincidan con los del SecureStorage
-            if (IsValid && user.username == Username && user.password == Password) {
-
-                // Marcar como preferencias que se inicio sesión
-                await SecureStorage.SetAsync("IsLoggedIn", "true");
-
-                // Viajar a la agenda
-                // DEBUGGING
+            if (success) {
                 await Shell.Current.DisplayAlert("LOGIN CORRECTO", "El login fue correcto", "OK");
                 await Shell.Current.GoToAsync("//AgendaPage");
-
             }
             else {
-                await Shell.Current.DisplayAlert("Login incorrecto", "El login no se concluyo", "OK");
+                await Shell.Current.DisplayAlert("Error", "Login fallido", "OK");
             }
-            
         }
         catch (Exception ex) {
             await Shell.Current.DisplayAlert("Error", $"{ex}", "OK");

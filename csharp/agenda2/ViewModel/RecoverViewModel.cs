@@ -25,21 +25,21 @@ internal partial class RecoverViewModel : ObservableObject {
         
         try {
 
-            var user = new User {
-                email = await SecureStorage.GetAsync("email"),
-                username = await SecureStorage.GetAsync("username"),
-                password = await SecureStorage.GetAsync("password"),
-            };
+            // var user = new User {
+            //     email = await SecureStorage.GetAsync("email"),
+            //     username = await SecureStorage.GetAsync("username"),
+            //     password = await SecureStorage.GetAsync("password"),
+            // };
 
-            if (IsValid && user.email == Email && user.username != null && user.password != null) {
-                
-                await Shell.Current.DisplayAlert("Recuperación exitosa", $"Usuario: {user.username} \nPassword: {user.password}", "OK");
-                await Shell.Current.GoToAsync("..");
-            }
-            else {
-                
-                await Shell.Current.DisplayAlert("Error", $"No existe el usuario para el email: {user.email}", "OK");
-            }
+            // if (IsValid && user.email == Email && user.username != null && user.password != null) {
+            //     
+            //     await Shell.Current.DisplayAlert("Recuperación exitosa", $"Usuario: {user.username} \nPassword: {user.password}", "OK");
+            //     await Shell.Current.GoToAsync("..");
+            // }
+            // else {
+            //     
+            //     await Shell.Current.DisplayAlert("Error", $"No existe el usuario para el email: {user.email}", "OK");
+            // }
             
             
 
