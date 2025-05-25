@@ -1,10 +1,11 @@
 
 use actix_web::{App, HttpServer};
-use sqlx::sqlite::SqlitePoolOptions;
 
 // Importando mis modulos
 mod dominio;
 mod infraestructura;
+
+use crate::infraestructura::db::sql_controller::DbController;
 
 // Path de la base de datos (No es apto para producción colocar aqui esta informacion, esta hecho
 // con fines practicos de desarollo y testeo).
@@ -13,12 +14,8 @@ pub const DB_PATH: &str = "sqlite://agenda.db";
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
 
-    // Creando el pool de la DB
-    let pool = SqlitePoolOptions::new()
-        .max_connections(5)
-        .connect(DB_PATH)
-        .await
-        .expect("Error al conectarse a la base de datos");
+    // Creando el controlador de la DB
+    let _db_controller = DbController::new(DB_PATH).await;
 
 
     // Iniciando el servidor HTTP
