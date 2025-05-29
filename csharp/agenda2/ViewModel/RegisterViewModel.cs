@@ -2,6 +2,7 @@
 namespace agenda2.ViewModel; 
 
 using Model;
+using Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,17 +11,29 @@ internal partial class RegisterViewModel : ObservableObject {
 
     /* Atributos ligados por Binding TwoWay */
     [ObservableProperty]
-    private string? email;
+    private string email;
 
     [ObservableProperty]
-    private string? username;
+    private string username;
 
     [ObservableProperty]
-    private string? password;
+    private string password;
 
     [ObservableProperty]
-    private string? confirmPassword;
+    private string confirmPassword;
 
+    private readonly UserService _userService;
+
+    public RegisterViewModel() {
+
+        _userService = new UserService();
+        
+        // Rellenar los atributos con Strings vacios
+        Email = string.Empty;
+        Username = string.Empty;
+        Password = string.Empty;
+        ConfirmPassword = string.Empty;
+    }
 
     [RelayCommand]
     private async Task Register() {
@@ -34,22 +47,25 @@ internal partial class RegisterViewModel : ObservableObject {
             try {
 
                 // Guardar los datos del usuario
-                // var user = new User {
+                // var user = new UserRegister {
                 //     email = Email,
-                //     username = Username,
-                //     password = Password
+                //     usuario = Username,
+                //     clave = Password
                 // };
 
-                // // Registrar los datos del usuario en SecureStorage
-                // await SecureStorage.SetAsync("email", user.email);
-                // await SecureStorage.SetAsync("username", user.username);
-                // await SecureStorage.SetAsync("password", user.password);
+                var success = await _userService.RegisterAsync(Username, Password, Email);
 
-                // // Mostrar en pantalla un DisplayAlert para hacer saber que se registro el usuario
-                // await Shell.Current.DisplayAlert("Usuario registrado", $"Usuario {Username}", "OK");
-                // 
-                // // Volver al Login
-                // await Shell.Current.GoToAsync("//LoginPage");
+                if (success) {
+                    
+                    // Mostrar en pantalla un DisplayAlert para hacer saber que se registro el usuario
+                    await Shell.Current.DisplayAlert("Usuario registrado", $"Usuario {Username}", "OK");
+                   
+                    // Volver al Login
+                    await Shell.Current.GoToAsync("//LoginPage");
+                }
+                else {
+                    await Shell.Current.DisplayAlert("Error", "Login fallido", "OK");
+                }
             }
 
             // Si falla mostrar un DisplayAlert con el error
@@ -71,7 +87,8 @@ internal partial class RegisterViewModel : ObservableObject {
 
     // Propiedad booleana para validar los Entry
     private bool IsValid 
-        => !string.IsNullOrWhiteSpace(Username)
+        => !string.IsNullOrWhiteSpace(Email)
+        && !string.IsNullOrWhiteSpace(Username)
         && !string.IsNullOrWhiteSpace(Password)
         && Password == ConfirmPassword;
         // && Password.Length > 8

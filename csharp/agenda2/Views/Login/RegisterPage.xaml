@@ -6,8 +6,7 @@
     x:Class="agenda2.Views.Login.RegisterPage"
     Title="Register"
     xmlns:vm="clr-namespace:agenda2.ViewModel"
-    x:DataType="vm:RegisterViewModel"
-    BackgroundColor="White">
+    x:DataType="vm:RegisterViewModel" >
 
     <VerticalStackLayout Padding="20" Spacing="20" VerticalOptions="Center">
 
@@ -15,14 +14,12 @@
             Text="Registrarse"
             FontSize="28"
             FontAttributes="Bold"
-            TextColor="Black"
             HorizontalOptions="Center" />
 
         <Frame 
             Padding="0" 
             CornerRadius="8" 
-            HasShadow="False" 
-            BackgroundColor="#F0F0F0">
+            HasShadow="False" >
 
             <Entry 
                 Placeholder="Email" 
@@ -34,8 +31,7 @@
         <Frame 
             Padding="0" 
             CornerRadius="8" 
-            HasShadow="False" 
-            BackgroundColor="#F0F0F0">
+            HasShadow="False" >
 
             <Entry 
                 Placeholder="Usuario" 
@@ -47,8 +43,7 @@
         <Frame 
             Padding="0" 
             CornerRadius="8" 
-            HasShadow="False" 
-            BackgroundColor="#F0F0F0">
+            HasShadow="False" >
 
             <Entry 
                 Placeholder="Contraseña" 
@@ -61,8 +56,7 @@
         <Frame 
             Padding="0" 
             CornerRadius="8" 
-            HasShadow="False" 
-            BackgroundColor="#F0F0F0">
+            HasShadow="False" >
 
             <Entry 
                 Placeholder="Confirmar contraseña" 
@@ -76,8 +70,6 @@
             Text="Registrarse" 
             Command="{Binding RegisterCommand}"
             FontAttributes="Bold"
-            BackgroundColor="Black"
-            TextColor="White"
             HeightRequest="45"
             CornerRadius="6" />
 

@@ -6,8 +6,7 @@
     x:Class="agenda2.Views.Login.RecoverPage"
     Title="Login"
     xmlns:vm="clr-namespace:agenda2.ViewModel"
-    x:DataType="vm:RecoverViewModel"
-    BackgroundColor="White">
+    x:DataType="vm:RecoverViewModel">
 
     <StackLayout Padding="20" Spacing="20" VerticalOptions="Center">
 
@@ -15,14 +14,12 @@
             Text="Recuperar sesión"
             FontSize="28"
             FontAttributes="Bold"
-            TextColor="Black"
             HorizontalOptions="Center" />
 
         <Frame 
             Padding="0" 
             CornerRadius="8" 
-            HasShadow="False" 
-            BackgroundColor="#F0F0F0">
+            HasShadow="False">
 
             <Label 
                 Text="Ingresa tu correo electrónico para enviarte instrucciones para recuperar tu cuenta." 
@@ -42,8 +39,6 @@
             Text="Recuperar contraseña" 
             Command="{Binding RecoverCommand}"
             FontAttributes="Bold"
-            BackgroundColor="Black"
-            TextColor="White"
             HeightRequest="45"
             CornerRadius="6" />
 

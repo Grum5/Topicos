@@ -1,6 +1,5 @@
 namespace agenda2.ViewModel; 
 
-using Model;
 using Services;
 
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,18 +9,22 @@ internal partial class LoginViewModel : ObservableObject {
 
     /* Atributos ligados por Binding TwoWay */
     [ObservableProperty]
-    private string? username;
+    private string username;
 
     [ObservableProperty]
-    private string? password;
+    private string password;
 
     private readonly INavigation _navigation;
-    private readonly AuthService _authService;
+    private readonly UserService _userService;
 
     public LoginViewModel(INavigation navigation) {
 
+        // Rellenar los parametros como strings vacios
+        Username = string.Empty;
+        Password = string.Empty;
+
         _navigation = navigation;
-        _authService = new AuthService();
+        _userService = new UserService();
 
         CheckIfUserIsLoggedIn();
     }
@@ -30,15 +33,19 @@ internal partial class LoginViewModel : ObservableObject {
 
         bool isLoggedIn = SecureStorage.GetAsync("IsLoggedIn").Result == "true";
 
-        if (isLoggedIn)
-        {
+        if (isLoggedIn) {
+
             // Esto se ejecuta inmediatamente si ya inició sesión
             GoToMainPage();
         }
     }
 
-    private async void GoToMainPage()
-    {
+    private async void GoToMainPage() {
+        
+        // Vaciar los Input
+        Username = string.Empty;
+        Password = string.Empty;
+
         // Asegúrate de que estés usando Shell
         await Shell.Current.GoToAsync("//AgendaPage");
     }
@@ -51,7 +58,7 @@ internal partial class LoginViewModel : ObservableObject {
 
         // Intentar obtener el usuario
         try {
-            var success = await _authService.LoginAsync(Username, Password);
+            var success = await _userService.LoginAsync(Username, Password);
 
             if (success) {
                 await Shell.Current.DisplayAlert("LOGIN CORRECTO", "El login fue correcto", "OK");
@@ -70,7 +77,10 @@ internal partial class LoginViewModel : ObservableObject {
     private async Task NavigateToRegister() {
         /* Metodo para viajar al RegisterPage */
         
-        await Shell.Current.GoToAsync("RegisterPage");
+        // Desde LoginViewModel o la página de login cuando navegas a RegisterPage
+        await Shell.Current.GoToAsync("RegisterPage", true, new Dictionary<string, object> {
+            ["UserService"] = _userService
+        });
     }
 
     [RelayCommand]
