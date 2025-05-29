@@ -1,14 +1,15 @@
 use serde::{Serialize, Deserialize};
+use sqlx::FromRow;
 
-#[derive(Debug, Deserialize, Serialize)]
+#[derive(Debug, Deserialize, Serialize, FromRow)]
 pub struct Usuario {
-    // Estructura agregar al usuario a la base de datos
+    // Estructura para la base de datos
 
     pub id: Option<u32>,
     pub usuario: String,
     pub clave: String,
     pub email: String,
-    pub activo: bool,
+    pub activo: u8,
 }
 
 #[derive(Debug, Deserialize)]

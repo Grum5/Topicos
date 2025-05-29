@@ -1,63 +1,96 @@
-use actix_web::{post, web, HttpResponse};
-use crate::dominio::models::{UserAuth, ErrorResponse, OkResponse};
+use actix_web::{post, web, HttpResponse, web::Json};
+use crate::aplicacion::auth_service::AuthService;
+use crate::dominio::models::{ErrorResponse, OkResponse, UserAuth, Usuario};
 
 // Definir el tipo de metodo HTTP (POST) y la ruta
 #[post("/auth")]
-async fn auth(data: Result<web::Json<UserAuth>, actix_web::Error>) -> HttpResponse {
+async fn auth( data: Result<Json<UserAuth>, actix_web::Error>, servicio: web::Data<AuthService> ) -> HttpResponse {
     /*
-    *   La función recibe como parametro un JSON con la misma estructura que UserAuth.
-    *    - En caso de no recibir nada se maneja el error manualmente y se devuleve el error en
-    *    formato JSON.
-    *    - Si el JSON no cumple con los requisitos se devuelve un error en formato JSON.
-    */ 
+    *   Funcion de metodo POST
+    *       - Recibe un JSON con dos parametros (usuario, clave)
+    *       - Recibe un servicio de actix_web, de la capa de aplicación
+    *       - Valida cada caso posible en caso de recibir o no recibir un JSON
+    */
 
-    // Usar match para verificar todos los posibles casos del Result<> enum
+    // Se utiliza match para verificar que se recibio correctamente el JSON
     match data {
 
-        // Caso Ok (Se recibio un JSON y no un Error)
+        // Si se recibio el JSON correctamente
         Ok(data) => {
 
-            // Verificar si los datos del JSON no son "None"
-            if let (Some(user), Some(_password)) = (&data.usuario, &data.clave) {
+            // Verifivar si los campos 'usuario' y 'clave' estan presentes en el JSON
+            if let (Some(usuario), Some(clave)) = (&data.usuario, &data.clave) {
 
-                println!("Se recibio una solicitud /auth con datos:\n{:?}", data);
+                // Llamar al metodo login del servicio de aplicacion con los datos recibidos
+                match servicio.login(usuario, clave).await {
 
-                // Crear la estructura de respuesta para el JSON
-                let result: OkResponse = OkResponse {
-                    mensaje: "Login exitoso".to_string(),
-                    usuario: user.to_string(),
-                    id: 123
-                };
+                    // Si el login fue exitoso
+                    Ok(true) => {
+                        
+                        // Devuelve una respuesta HTTP 200 con un JSON indicando exito
+                        HttpResponse::Ok().json(OkResponse {
+                            mensaje: "Login exitoso".to_string(),
+                            usuario: usuario.clone(),
+                            id: 1, // podrías extender para devolver el id real
+                            })
+                    }
 
-                // Mandar la respuesta con el JSON
-                HttpResponse::Ok().json(result)
+                    // Si el usuario no existe, la clave no coincide o esta inactivo
+                    Ok(false) => {
+                        HttpResponse::Unauthorized().json(ErrorResponse {
+                            error: "Credenciales inválidas o usuario inactivo".to_string(),
+                        })
+                    }
+
+                    // Si ocurre un error interno (falla en la DB)
+                    Err(_) => {
+                        HttpResponse::InternalServerError().json(ErrorResponse {
+                            error: "Error interno al validar el login".to_string(),
+                        })
+                    }
+                }
             }
-
-            // Si el JSON esta incompleto entonces...
             else {
-
-                // Crear la estructura de respuesta para el JSON
-                let error: ErrorResponse = ErrorResponse {
-                    error: "Usuario y contraseña requeridos".to_string()
-                };
-
-                // Mandar la respuesta con el JSON
-                HttpResponse::BadRequest().json(error)
+                // Si el JSON esta bien formado pero faltan usuario o clave
+                HttpResponse::BadRequest().json(ErrorResponse {
+                    error: "Usuario y clave requeridos".to_string(),
+                })
             }
         }
 
-        // Si desde un inicio no se manda un JSON entonces...
-        Err(_) => {
+        // Si no se pudo serializar el JSON (se introducio un formato incorreto)
+        Err(_) => HttpResponse::BadRequest().json(ErrorResponse {
+            error: "Formato de entrada inválido".to_string(),
+        }),
+    }
+}
 
-            
-            // Crear la estructura de respuesta para el JSON
-            let error: ErrorResponse = ErrorResponse {
-                error: "Credenciales invalidas".to_string()
-            };
+#[post("/register")]
+async fn register(
+    data: Result<web::Json<Usuario>, actix_web::Error>,
+    servicio: web::Data<AuthService>,
+) -> HttpResponse {
 
+    match data {
 
-            // Mandar la respuesta con el JSON
-            HttpResponse::Unauthorized().json(error)
+        Ok(usuario) => {
+
+            match servicio.register(&usuario).await {
+
+                Ok(_) => HttpResponse::Ok().json(OkResponse {
+                    mensaje: "Usuario registrado exitosamente".to_string(),
+                    usuario: usuario.usuario.clone(),
+                    id: usuario.id.unwrap_or(0),
+                }),
+
+                Err(e) => HttpResponse::InternalServerError().json(ErrorResponse {
+                    error: format!("Error registrando usuario: {}", e),
+                }),
+            }
         }
+
+        Err(_) => HttpResponse::BadRequest().json(ErrorResponse {
+            error: "Datos inválidos".to_string(),
+        }),
     }
 }

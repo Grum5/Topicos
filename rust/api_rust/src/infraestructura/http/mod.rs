@@ -4,4 +4,5 @@ use actix_web::web;
 
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(handlers::auth);
+    cfg.service(handlers::register);
 }
