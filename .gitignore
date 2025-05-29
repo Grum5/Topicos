@@ -6,8 +6,6 @@ python/
 target/
 bin/
 obj/
-dbAccessAvalonia/
-dbAccessCLI/
 not_push/
 
 # Python 
