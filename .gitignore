@@ -1,6 +1,9 @@
 .gitignore
 android_developement_instructions.md
 python/
+csharp/
+rust/
+java/
 
 
 target/
