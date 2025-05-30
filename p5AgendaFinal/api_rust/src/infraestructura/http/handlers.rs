@@ -1,10 +1,12 @@
 use actix_web::{post, web, HttpResponse, web::Json};
 use crate::aplicacion::auth_service::AuthService;
-use crate::dominio::models::{ErrorResponse, OkResponse, UserAuth, Usuario};
+use crate::dominio::models::{AuthError, ErrorResponse, OkResponse, UserAuth, Usuario};
 
 // Definir el tipo de metodo HTTP (POST) y la ruta
 #[post("/auth")]
-async fn auth( data: Result<Json<UserAuth>, actix_web::Error>, servicio: web::Data<AuthService> ) -> HttpResponse {
+async fn auth(
+    data: Result<Json<UserAuth>, actix_web::Error>, 
+    servicio: web::Data<AuthService> ) -> HttpResponse {
     /*
     *   Funcion de metodo POST
     *       - Recibe un JSON con dos parametros (usuario, clave)
@@ -25,27 +27,31 @@ async fn auth( data: Result<Json<UserAuth>, actix_web::Error>, servicio: web::Da
                 match servicio.login(usuario, clave).await {
 
                     // Si el login fue exitoso
-                    Ok(true) => {
+                    Ok(user_auth) => {
                         
                         // Devuelve una respuesta HTTP 200 con un JSON indicando exito
                         HttpResponse::Ok().json(OkResponse {
                             mensaje: "Login exitoso".to_string(),
                             usuario: usuario.clone(),
-                            id: 1, // podrías extender para devolver el id real
+                            id: user_auth.id, // podrías extender para devolver el id real
                             })
                     }
 
-                    // Si el usuario no existe, la clave no coincide o esta inactivo
-                    Ok(false) => {
-                        HttpResponse::Unauthorized().json(ErrorResponse {
-                            error: "Credenciales inválidas o usuario inactivo".to_string(),
-                        })
-                    }
+                    Err(err) => {
+                        let mensaje = match err {
+                            AuthError::InvalidCredentials => "Credenciales inválidas",
+                            AuthError::InactiveUser => "Usuario inactivo",
+                            AuthError::NotFound => "Usuario no encontrado",
+                            AuthError::DatabaseError => "Error interno del servidor",
+                        };
 
-                    // Si ocurre un error interno (falla en la DB)
-                    Err(_) => {
-                        HttpResponse::InternalServerError().json(ErrorResponse {
-                            error: "Error interno al validar el login".to_string(),
+                        let mut codigo = match err {
+                            AuthError::InvalidCredentials | AuthError::InactiveUser | AuthError::NotFound => HttpResponse::Unauthorized(),
+                            AuthError::DatabaseError => HttpResponse::InternalServerError(),
+                        };
+
+                        codigo.json(ErrorResponse {
+                            error: mensaje.to_string(),
                         })
                     }
                 }
@@ -80,7 +86,7 @@ async fn register(
                 Ok(_) => HttpResponse::Ok().json(OkResponse {
                     mensaje: "Usuario registrado exitosamente".to_string(),
                     usuario: usuario.usuario.clone(),
-                    id: usuario.id.unwrap_or(0),
+                    id: usuario.id,
                 }),
 
                 Err(e) => HttpResponse::InternalServerError().json(ErrorResponse {

@@ -51,15 +51,14 @@ impl DbController {
             r#"
             CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                usuario TEXT NOT NULL,
+                usuario TEXT NOT NULL UNIQUE,
                 clave TEXT NOT NULL,
-                email TEXT NOT NULL,
-                activo INTERGER DEFAULT 1 NOT NULL
+                email TEXT NOT NULL UNIQUE,
+                activo INTERGER NOT NULL DEFAULT 1
             );
             "#
         ).execute(&self.pool).await?;
 
-        println!("Tabla 'usuarios' verificada/creada.");
         Ok(())
     }
     

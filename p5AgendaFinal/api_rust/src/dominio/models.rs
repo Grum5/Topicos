@@ -12,10 +12,19 @@ pub struct Usuario {
     pub activo: u8,
 }
 
+#[derive(Debug)]
+pub enum AuthError {
+    InvalidCredentials,
+    InactiveUser,
+    NotFound,
+    DatabaseError,
+}
+
 #[derive(Debug, Deserialize)]
 pub struct UserAuth {
     // Estructura para recibir el JSON de autenticación del usuario
     
+    pub id: Option<u32>,
     pub usuario: Option<String>,
     pub clave: Option<String>
 }
@@ -26,7 +35,7 @@ pub struct OkResponse {
     
     pub mensaje: String,
     pub usuario: String,
-    pub id: u32
+    pub id: Option<u32>
 }
 
 #[derive(Serialize)]
